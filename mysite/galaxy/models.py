@@ -10,6 +10,9 @@ class AstronomicalObjectScale(models.Model):
         verbose_name = 'Масштабность объекта'
         verbose_name_plural = 'Масштабность объектав'
 
+    def __str__(self):
+        return self.name
+
 
 class ClassificationType(models.Model):
     """Тип классификации."""
@@ -20,6 +23,9 @@ class ClassificationType(models.Model):
         verbose_name = 'Tип классификации'
         verbose_name_plural = 'Типы классификации'
 
+    def __str__(self):
+        return self.name
+
 
 class AstronomicalObjectType(models.Model):
     """Тип объекта в классификации."""
@@ -28,6 +34,9 @@ class AstronomicalObjectType(models.Model):
     class Meta:
         verbose_name = 'Тип небесного тела'
         verbose_name_plural = 'Типы небесных тел'
+
+    def __str__(self):
+        return self.name
 
 
 class AstronomicalObjectGroup(models.Model):
@@ -52,3 +61,6 @@ class AstronomicalObjectGroup(models.Model):
     class Meta:
         verbose_name = 'Астрономический объект'
         verbose_name_plural = 'Астрономические объекты'
+
+    def __str__(self):
+        return '{} - {} - {}'.format(self.scale, self.classification, self.asto_type)
