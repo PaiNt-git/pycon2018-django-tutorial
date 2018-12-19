@@ -1,2 +1,12 @@
 venv
+.project
+.pydevproject
+.hgignore
+.settings
+.idea
 *.pyc
+*.project
+*.pydevproject
+*.hgignore
+*.idea
+
