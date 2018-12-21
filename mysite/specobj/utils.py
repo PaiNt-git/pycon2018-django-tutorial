@@ -14,21 +14,21 @@ import datetime
 from .models import Obj, Spec
 
 
-def get_actual_specs(obj):
-    today = datetime.date.today()
-    specs = Spec.objects.filter(link=obj).filter(date=today)
+def get_actual_specs(obj, actday=None):
+    # today = datetime.date.today()
+    specs = Spec.objects.filter(link=obj).filter(date=actday)
     return specs
 
 
-def set_not_actual_specs(obj):
-    today = datetime.date.today()
-    updated = Spec.objects.filter(link=obj).filter(date__lt=today).update(is_actual=False)
+def set_not_actual_specs(obj, actday=None):
+    # today = datetime.date.today()
+    updated = Spec.objects.filter(link=obj).filter(date__lt=actday).update(is_actual=False)
 
 
 def set_delobj_not_actual_specs():
-    today = datetime.date.today()
-    #updated = Spec.objects.filter(date__lt=today).select_related('link').update(link__is_deleted=True)
-    specs = updated = Spec.objects.filter(date__lt=today).select_related('link')
+    # today = datetime.date.today()
+    # updated = Spec.objects.filter(date__lt=today).select_related('link').update(link__is_deleted=True)
+    specs = updated = Spec.objects.filter(is_actual=False).select_related('link')
     for spec in specs:
         spec.link.is_deleted = True
         spec.link.save()
