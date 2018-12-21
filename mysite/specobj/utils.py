@@ -9,7 +9,6 @@
 # TODO Удалять объекты которые помечены на удаление.
 # TODO
 
-import datetime
 
 from .models import Obj, Spec
 
