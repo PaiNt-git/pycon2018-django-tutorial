@@ -19,11 +19,12 @@ class Command(BaseCommand):
 
         logger.info('=START==================================get_actual_specs')
         obj = Obj.objects.get(pk=1)
-        pprint(get_actual_specs(obj))
+        today = datetime.date.today()
+        pprint(get_actual_specs(obj, today))
         logger.info('=END====================================get_actual_specs\n')
 
         logger.info('=START==================================set_not_actual_specs')
-        pprint(set_not_actual_specs(obj))
+        pprint(set_not_actual_specs(obj, today))
         logger.info('=END====================================set_not_actual_specs\n')
 
         logger.info('=START==================================set_delobj_not_actual_specs')
