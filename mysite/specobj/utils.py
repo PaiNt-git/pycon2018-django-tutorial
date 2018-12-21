@@ -27,7 +27,11 @@ def set_not_actual_specs(obj):
 
 def set_delobj_not_actual_specs():
     today = datetime.date.today()
-    updated = Spec.objects.filter(date__lt=today).select_related('link').update(link__is_deleted=True)
+    #updated = Spec.objects.filter(date__lt=today).select_related('link').update(link__is_deleted=True)
+    specs = updated = Spec.objects.filter(date__lt=today).select_related('link')
+    for spec in specs:
+        spec.link.is_deleted = True
+        spec.link.save()
 
 
 def del_is_delete_obj():

@@ -17,15 +17,19 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        logger.info('=START==================================get_actual_characteristics')
+        logger.info('=START==================================get_actual_specs')
         obj = Obj.objects.get(pk=1)
-        pprint(get_actual_characteristics(obj))
-        logger.info('=END====================================get_actual_characteristics\n')
+        pprint(get_actual_specs(obj))
+        logger.info('=END====================================get_actual_specs\n')
 
-        logger.info('=START==================================get_actual_characteristics_today')
-        pprint(get_actual_characteristics_today())
-        logger.info('=END====================================get_actual_characteristics_today\n')
+        logger.info('=START==================================set_not_actual_specs')
+        pprint(set_not_actual_specs(obj))
+        logger.info('=END====================================set_not_actual_specs\n')
 
-        logger.info('=START==================================get_actual_objects_today')
-        pprint(get_actual_objects_today())
-        logger.info('=END====================================get_actual_objects_today\n')
+        logger.info('=START==================================set_delobj_not_actual_specs')
+        pprint(set_delobj_not_actual_specs())
+        logger.info('=END====================================set_delobj_not_actual_specs\n')
+
+        logger.info('=START==================================del_is_delete_obj')
+        pprint(del_is_delete_obj())
+        logger.info('=END====================================del_is_delete_obj\n')
