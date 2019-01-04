@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.db.models import Value
+from django.db.models.functions import Concat
 
 class Person(models.Model):
     """Модель физ. лиц"""
@@ -17,6 +18,14 @@ class Person(models.Model):
     create_at = models.DateField('Дата создания', auto_now_add=True)
     modify_at = models.DateField('Дата модификации', auto_now=True)
 
+
+    def fio(self):
+        return '{} {} {}'.format(self.lastname, self.firstname, self.patronimyc, )
+    fio.short_description = u'ФИО'
+    fio.admin_order_field = Concat('lastname', Value(' '), 'firstname', Value(' '), 'patronimyc')
+
+    fio_prop = property(fio)
+
     def __str__(self):
         return f'{self.lastname} {self.patronimyc} {self.lastname}'
 
@@ -30,6 +39,18 @@ class Emploee(models.Model):
 
     person = models.OneToOneField(Person, on_delete=models.PROTECT)
     position = models.CharField('Должность', max_length=100)
+
+    def person_fio(self):
+        return '{} {} {}'.format(self.person.lastname, self.person.firstname, self.person.patronimyc, )
+    person_fio.short_description = u'ФИО'
+    person_fio.admin_order_field = Concat('person__lastname', Value(' '), 'person__firstname', Value(' '), 'person__patronimyc')
+
+    fio_prop = property(person_fio)
+
+    def person_birth_date(self):
+        return self.person.birth_date
+    person_birth_date.short_description = u'Дата рождения'
+    person_birth_date.admin_order_field = 'person__birth_date'
 
     class Meta:
         verbose_name = 'Сотрудник'
