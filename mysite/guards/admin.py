@@ -28,6 +28,30 @@ class PersonAdmin(admin.ModelAdmin):
     # ordering = ('fio_prop', )  # <class 'guards.admin.PersonAdmin'>: (admin.E033) The value of 'ordering[0]' refers to 'fio', which is not an attribute of 'guards.Person'.
     ordering = ('lastname', 'firstname', 'patronimyc')
 
+    fieldsets = (
+        ('Личные данные', {
+            'fields': (
+                'firstname',
+                'patronimyc',
+                'lastname',
+                'address',
+                'birth_date',
+                'document',
+                'document_number',
+                'document_date',
+
+            )
+        }),
+        ('Служебные данные', {
+            'fields': (
+                'create_at',
+                'modify_at',
+            ),
+        }),
+    )
+
+    readonly_fields = ('create_at', 'modify_at', )
+
 
 admin.site.register(Person, PersonAdmin)
 
@@ -56,6 +80,19 @@ class EmploeeAdmin(admin.ModelAdmin):
 
     # ordering = ('fio_prop', )  # <class 'guards.admin.EmploeeAdmin'>: (admin.E033) The value of 'ordering[0]' refers to 'person_fio', which is not an attribute of 'guards.Emploee'.
     ordering = ('person__lastname', 'person__firstname', 'person__patronimyc')
+
+    fieldsets = (
+        ('Личные данные', {
+            'fields': (
+                'person',
+            )
+        }),
+        ('Служебные данны', {
+            'fields': (
+                'position',
+            ),
+        }),
+    )
 
 
 admin.site.register(Emploee, EmploeeAdmin)
@@ -146,6 +183,34 @@ class AccessControlAdmin(admin.ModelAdmin):
     ordering = ('-modify_at', )
 
     actions = AccessControlAdmin_actions
+
+    fieldsets = (
+        ('Группировка данных о физических лицах', {
+            'fields': (
+                'person',
+            )
+        }),
+        ('Группировка данных о пропуске и уровне доступа', {
+            'fields': (
+                'reason',
+                'pass_number',
+                'pass_level',
+                'is_single',
+                'date_open',
+                'date_close',
+                'is_closed',
+
+            ),
+        }),
+        ('Служебная информация о создании записи доступна только для чтения', {
+            'fields': (
+                'create_at',
+                'modify_at',
+            ),
+        }),
+    )
+
+    readonly_fields = ('create_at', 'modify_at', )
 
 
 admin.site.register(AccessControl, AccessControlAdmin)
